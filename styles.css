@@ -5,13 +5,17 @@
 }
 
 md-sidenav.md-locked-open {
-  width: 150px !important;
-  min-width: 150px !important;
-  max-width: 150px !important;
+  width: 200px !important;
+  min-width: 200px !important;
+  max-width: 200px !important;
 }
 
 .listdemoBasicUsage md-divider {
   margin-top: 10px;
   margin-bottom: 10px; 
   
+}
+
+.chat-box{
+  overflow : auto;
 }

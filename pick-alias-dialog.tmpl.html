@@ -1,0 +1,20 @@
+<md-dialog aria-label="Welcome!"  ng-cloak>
+  <form ng-submit="answer()">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Welcome, {{currentUser || 'Anonymous'}}!</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+    <div class="md-dialog-content">
+      <p>Pick an alias</p>
+      <input type="text" placeholder="p.e. yeyo" data-ng-model="currentUser"/>  
+      <input type="submit" id="submit" value="OK" />
+    </div>
+  </md-dialog-content>
+  </form>
+</md-dialog>
