@@ -1,8 +1,8 @@
-var app = angular.module('StarterApp', ['ngMaterial', 'firebase','luegg.directives', 'ui.gravatar']);
+angular.module('ChatApp.controllers').controller('ChatCtrl', ChatCtrl);
 
-app.controller('AppController', function($mdSidenav, $scope, $firebaseArray,  $mdDialog, LS) {
-  
- $scope.connectedUsers = [];
+function ChatCtrl($scope, $firebaseArray,  $mdDialog, LS){
+
+$scope.connectedUsers = [];
  
   var ref = new Firebase('https://ng-tasker-chat.firebaseio.com/');
   $scope.messages = $firebaseArray(ref);
@@ -31,13 +31,19 @@ app.controller('AppController', function($mdSidenav, $scope, $firebaseArray,  $m
         templateUrl: 'pick-alias-dialog.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        clickOutsideToClose:true
+        clickOutsideToClose:false
       })
     };
     
     function DialogController($scope, $mdDialog) {
       $scope.answer = function() {
+        //store alias in browser
         LS.setData($scope.currentUser);
+        //update users list
+        $scope.connectedUsers = $firebaseArray(ref);
+        $scope.connectedUsers.$add({
+          name: $scope.currentUser
+        });
         $mdDialog.hide();
       };
     };
@@ -58,42 +64,4 @@ app.controller('AppController', function($mdSidenav, $scope, $firebaseArray,  $m
           $scope.showSelectAliasAlert();
       }  
     };
-});
-
-
-/*
-This directive allows us to pass a function in on an enter key to do what we want.
- */
-app.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.ngEnter);
-                });
- 
-                event.preventDefault();
-            }
-        });
-    };
-});
-
-/*
- Local storage 
-*/
-app.factory("LS", function($window, $rootScope) {
-  angular.element($window).on('storage', function(event) {
-    if (event.key === 'my-storage') {
-      $rootScope.$apply();
-    }
-  });
-  return {
-    setData: function(val) {
-      $window.localStorage && $window.localStorage.setItem('my-storage', val);
-      return this;
-    },
-    getData: function() {
-      return $window.localStorage && $window.localStorage.getItem('my-storage');
-    }
-  };
-});
+}
