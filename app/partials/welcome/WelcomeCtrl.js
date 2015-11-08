@@ -20,7 +20,7 @@ function WelcomeCtrl($scope, $firebaseArray,  $mdDialog, LS, $location){
       // to prevent interaction outside of dialog
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: 'pick-alias-dialog.tmpl.html',
+        templateUrl: 'app/partials/welcome/pick-alias-dialog.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:false
@@ -37,11 +37,12 @@ function WelcomeCtrl($scope, $firebaseArray,  $mdDialog, LS, $location){
           name: $scope.currentUser
         });
         $mdDialog.hide();
+        //redirect to chat
+        $location.path("chat");
       };
     };
     
     $scope.init = function init() {
-        console.log("aaa");
         //load stored data
         $scope.currentUser = LS.getData();
             if(!$scope.currentUser){
