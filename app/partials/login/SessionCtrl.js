@@ -1,46 +1,35 @@
-chatApp.controller('SessionCtrl', function ($scope, $location, auth, store) {
-  $scope.auth = auth;
+angular
+.module('ChatApp.controllers')
+.controller('SessionCtrl', SessionCtrl);
 
-  $scope.go = function (target) {
-    $location.path(target);
-  };
+SessionCtrl.$inject = ['$scope', '$firebaseArray',  '$mdDialog', 'LS', '$location'];
 
-  var saveUserInfo = function(profile, token) {
-    store.set('profile', profile);
-    store.set('token', token);
+function SessionCtrl($scope, $firebaseArray,  $mdDialog, LS, $location) {
+
+ /* jshint validthis: true */
+ var vm = this;  
+ var ref = new Firebase('https://ng-tasker-chat.firebaseio.com/');
+ var authData = ref.getAuth();
+ 
+
+ ref.onAuth(function(authData) {
+  if (authData) {
+    $location.path("chat");
   }
-
-  $scope.signup = function() {
-    auth.signup({popup:  true, auto_login: false})
-      .then(function(profile, id_token) {
-        saveUserInfo(profile, id_token);
-        $location.path('/');
-
-      })
-  }
-
-  $scope.reset = function () {
-    auth.reset({}, function () {
-        // TODO Handle when login succeeds
-        console.log("OK");
-      }, function () {
-        console.log("FAIL");
-        // TODO Handle when login fails
-      });
-  };
-  $scope.login = function () {
-       auth.signin({}, function (profile, id_token) {
-          saveUserInfo(profile, id_token);
-          $location.path('/');
-        }, function () {
-          // TODO Handle when login fails
-        });
-  };
-
- $scope.logout = function () {
-    auth.signout();
-    store.remove('profile');
-    store.remove('token');
-    $location.path('/login');
-     };
 });
+
+ $scope.login = function () {
+  ref.authWithOAuthPopup("google", function(error, authData) {
+    if (error) {
+      console.log(error);
+    }else{
+      location.reload();
+    }
+  });
+};
+
+  $scope.logout = function () {
+    ref.unauth();
+    $location.path("/");
+  };
+}

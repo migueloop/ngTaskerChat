@@ -17,4 +17,15 @@ angular.module('ChatApp', ['ChatApp.services','ChatApp.controllers', 'ngRoute', 
   	.otherwise({
   	  redirectTo: '/'
   	});
-}]);
+}])
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+    .primaryPalette('pink')
+    .accentPalette('blue-grey')
+    .warnPalette('green')
+    .backgroundPalette('blue-grey')
+    .dark();
+});
+
+
+;
