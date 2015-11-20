@@ -22,4 +22,24 @@ angular.module('ChatApp.services', [])
       return $window.localStorage && $window.localStorage.getItem('my-storage');
     }
   };
+})
+.factory("Auth", function(){
+  var user;
+  var ref = new Firebase('https://ng-tasker-chat.firebaseio.com/');
+  var authData = ref.getAuth();
+  return{
+      setUser : function(aUser){
+          user = aUser;
+      },
+      isLoggedIn : function(){
+        if(authData){
+          return true;
+        }else{
+          return false;
+        }
+      },
+      logout : function(){
+        ref.unauth();
+      }
+    }
 });
