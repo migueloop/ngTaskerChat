@@ -18,8 +18,7 @@ angular.module('ChatApp', ['ChatApp.services','ChatApp.controllers', 'ngRoute', 
 }])
 .run(['$rootScope', '$location' ,'Auth', function ($rootScope, $location, Auth) {
     $rootScope.$on('$routeChangeStart', function (event) {
-      console.log("check if user is logged " + Auth.isLoggedIn());
-      if (!Auth.isLoggedIn()) {
+      if (Auth.isLoggedIn()) {
          $location.path("/chat");
        }else{
          /* event.preventDefault();*/

@@ -39,7 +39,7 @@ angular.module('ChatApp.services', [])
         }
       },
       logout : function(){
-        ref.unauth();
+        authData = ref.unauth();
       }
     }
 });
