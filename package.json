@@ -13,5 +13,8 @@
     "prestart": "npm install",
     "start": "./node_modules/.bin/live-server --port=9000",
     "postinstall": "bower install"
+  },
+  "dependencies": {
+    "live-server": "~0.8.2"
   }
 }
