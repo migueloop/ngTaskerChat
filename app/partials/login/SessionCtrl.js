@@ -15,6 +15,7 @@ function SessionCtrl($scope,LS, $location , Auth) {
     if (error) {
       console.log(error);
     }else{
+      Auth.setUser(authData.getUser());
       location.reload();
     }
   });

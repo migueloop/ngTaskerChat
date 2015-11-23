@@ -6,7 +6,7 @@ $scope.connectedUsers = [];
  
   var ref = new Firebase('https://ng-tasker-chat.firebaseio.com/');
   $scope.messages = $firebaseArray(ref);
-  $scope.connectedUsers = $firebaseArray(ref);
+  $scope.users = $firebaseArray(ref);
   
  
   var vm = this;
@@ -56,7 +56,8 @@ $scope.connectedUsers = [];
     
     $scope.init = function () {
       //load stored data
-    $scope.currentUser = LS.getData();
+    var authData = ref.getAuth();
+    $scope.currentUser = authData;
       if(!$scope.currentUser){
           $scope.showSelectAliasAlert();
       }  
