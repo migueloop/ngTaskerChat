@@ -13,12 +13,13 @@
   </div>
 </md-toolbar>
 
+
  <div layout="column" flex id="content" class="chat-box" scroll-glue>
-      <md-list>
+      <md-list ng-init="messages = getMessages()">
         <md-list-item class="md-2-line" ng-repeat="item in messages">
-          <img gravatar-src-once="currentUser" class="md-avatar">
+          <img ng-src="{{item.author.google.profileImageURL}}" class="md-avatar">
           <div class="md-list-item-text" layout="column">
-            <h3 data-ng-bind="item.author"></h3>
+            <h3 data-ng-bind="item.author.google.displayName"></h3>
             <p data-ng-bind="item.text"></p>
           </div>
         </md-list-item>
@@ -27,6 +28,3 @@
           <input type="text" ng-model="msg.text" ng-enter="addMessage(msg); msg.text=null" columns="1" md-maxlength="700"/>
       </md-input-container>
  </div>
-
-
-

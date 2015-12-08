@@ -31,6 +31,10 @@ angular.module('ChatApp.services', [])
       setUser : function(aUser){
           user = aUser;
       },
+      getUser : function(){
+         user = ref.getAuth();
+         return user;
+      },
       isLoggedIn : function(){
         if(authData){
           return true;
