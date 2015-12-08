@@ -14,7 +14,7 @@
   },
   "scripts": {
     "prestart": "npm install",
-    /*"start:dev": "./node_modules/.bin/live-server --port=9000",*/
+    "startDev": "./node_modules/.bin/live-server --port=9000",
     "start" : "http-server -a localhost -p 8000 -c-1",
     "postinstall": "bower install"
   },
